@@ -50,6 +50,7 @@ Realice los siguientes ejercicios de graficación en R (el valor porcentual de c
 # Importación de datos de casos recuperados, fallecidos, activos y confirmados de Covid-19 en los países de Centroamérica
 ca_covid19 <- read.csv(file='https://raw.githubusercontent.com/geoprocesamiento-2020i/datos/master/covid19/casos/ca/ca-covid19.csv')
 
+
 # Despliegue de los datos
 print(ca_covid19)
 ```
@@ -58,17 +59,30 @@ print(ca_covid19)
 
 ```{r}
 
+
+summary(ca_covid19)
+
 ```
 
 3. (10%) Con la función ```barplot()```, genere un gráfico de barras de los casos confirmados.
 
 ```{r}
 
+barplot(height=ca_covid19$confirmados)
+
+
 ```
 
 4. (10%) Con la función  ```order()```, ordene el data frame por cantidad de casos confirmados y genere de nuevo el gráfico.
 
 ```{r}
+
+confirmados.ordenado <- order(ca_covid19$confirmados, decreasing=TRUE)
+
+ca_covid19.confirmados <- ca_covid19[confirmados.ordenado,]
+
+barplot(height=ca_covid19.confirmados$confirmados)
+
 
 ```
 
@@ -79,6 +93,15 @@ print(ca_covid19)
 
 ```{r}
 
+barplot(
+  height=ca_covid19.confirmados$confirmados, 
+  names.arg=ca_covid19.confirmados$pais, 
+  xlab=" País ", 
+  ylab="Casos confirmados",   
+  main="Casos confirmados de Covid-19 en países centroamericanos y Dom", 
+
+)
+
 ```
 
 6. Genere gráficos similares al del paso anterior para:
@@ -87,8 +110,37 @@ print(ca_covid19)
 
 ```{r}
 
+
+activos.ordenado <- order(ca_covid19$activos, decreasing=TRUE)
+
+ca_covid19.activos <- ca_covid19[activos.ordenado,]
+
+
+barplot(
+  height=ca_covid19.activos$activos, 
+  names.arg=ca_covid19.activos$pais, 
+  xlab="País", 
+  ylab="Casos activos", 
+  main="Casos activos de Covid-19 en países centroamericanos y DOM"
+)
+
 ```
 
 ```{r}
+
+fallecidos.ordenado <- order(ca_covid19$fallecidos, decreasing=TRUE)
+
+ca_covid19.fallecidos <- ca_covid19[fallecidos.ordenado,]
+
+
+barplot(
+  height=ca_covid19.fallecidos$fallecidos, 
+  names.arg=ca_covid19.fallecidos$pais, 
+  xlab="País", 
+  ylab="Personas Fallecidas", 
+  main="Personas fallecidas por Covid-19 en países centroamericanos y DOM"
+)
+
+
 
 ```
